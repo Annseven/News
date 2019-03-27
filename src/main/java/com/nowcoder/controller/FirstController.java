@@ -4,16 +4,14 @@ import com.nowcoder.model.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.lang.reflect.Array;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @Author: AnNing
@@ -22,12 +20,13 @@ import java.util.Map;
  */
 @Controller
 public class FirstController {
+    //url使用
     @RequestMapping(path={"/","/index"})
     @ResponseBody
     public  String index(){
         return "Hello,Lee";
     }
-
+    //参数的使用
     @RequestMapping(value={"/profile/{userName}/{userId}"})
     @ResponseBody
     public  String profile(@PathVariable("userName") String userName,
@@ -38,6 +37,7 @@ public class FirstController {
 
     }
 
+   //测试前后台数据传递
     @RequestMapping(path={"/vm"})
     public  String News(Model model){
         model.addAttribute("value1","anning");
@@ -54,4 +54,49 @@ public class FirstController {
 
         return "news";
     }
+
+    //Request主要是参数的接，cooike读取
+    @RequestMapping(value={"/request"})
+    @ResponseBody
+    public String request(HttpServletRequest request,
+                          HttpServletResponse response,
+                          HttpSession session){
+        StringBuilder sb= new StringBuilder();
+        Enumeration<String> headernames=request.getHeaderNames();
+        while(headernames.hasMoreElements()){
+            String name=headernames.nextElement();
+            sb.append(name+":"+request.getHeader(name)+"<br>");
+        }
+
+        for(Cookie cookie:request.getCookies()){
+            sb.append("Cookie:");
+            sb.append(cookie.getName());
+            sb.append(":");
+            sb.append(cookie.getValue());
+            sb.append("<br>");
+        }
+
+
+        sb.append("getMethod:"+request.getMethod()+"<br>");
+        sb.append("getpathInfo:"+request.getPathInfo()+"<br>");
+        sb.append("getQueryString:"+request.getQueryString()+"<br>");
+        sb.append("getRequest:"+request.getRequestURI()+"<br>");
+
+        return  sb.toString();
+
+    }
+
+    //response主要是页面内容返回，cookie的下发
+    @RequestMapping(path={"/response"})
+    @ResponseBody
+    public  String response(@CookieValue(value="nowcoderid",defaultValue ="a") String nowcodeid,
+                            @RequestParam(value="key",defaultValue = "key") String key,
+                            @RequestParam(value="value",defaultValue = "value") String value,
+                            HttpServletResponse response){
+        response.addCookie(new Cookie(key,value));
+        response.addHeader(key,value);
+        return "NowCoderId from Cookie:"+nowcodeid;
+    }
+
+
 }
