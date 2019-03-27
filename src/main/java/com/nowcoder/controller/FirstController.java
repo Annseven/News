@@ -1,6 +1,8 @@
 package com.nowcoder.controller;
 
 import com.nowcoder.model.User;
+import com.nowcoder.service.TouTiaoservice;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
@@ -20,6 +22,19 @@ import java.util.*;
  */
 @Controller
 public class FirstController {
+
+    @Autowired
+    private TouTiaoservice touTiaoservice;
+
+    @RequestMapping(path={"/index2"},method = {RequestMethod.GET,RequestMethod.POST })
+    @ResponseBody
+    public String index2(HttpSession session){
+
+        return "hello Anne,"+session.getAttribute("msg")+
+                "<br>Say:"+touTiaoservice.say();
+
+    }
+
     //url使用
     @RequestMapping(path={"/","/index"})
     @ResponseBody
@@ -97,6 +112,24 @@ public class FirstController {
         response.addHeader(key,value);
         return "NowCoderId from Cookie:"+nowcodeid;
     }
+    //重定向
+    @RequestMapping("/redirect/{code}")
+    public String redict(@PathVariable("code") int code,
+                         HttpSession session){
+
+        session.setAttribute("msg","Jump from redict");
+        return "redirect:/";
+    }
+    @RequestMapping("/admin")
+    @ResponseBody
+    public String admin(@RequestParam(value="key",required = false) String key){
+        if ("admin".equals(key)){
+            return  "hello,admin";
+        }
+        throw new  IllegalArgumentException("Key错误！");
+    }
+
+
 
 
 }
