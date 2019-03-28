@@ -12,8 +12,7 @@ public class User {
     private  String Salt;
     private String HeadUrl;
 
-    public User(String name) {
-        Name = name;
+    public User() {
     }
 
     public Integer getId() {

@@ -65,7 +65,7 @@ public class FirstController {
         }
         model.addAttribute("map",map);
 
-        model.addAttribute("user", new User("Jim"));
+//        model.addAttribute("user", new User("Jim"));
 
         return "news";
     }
@@ -128,8 +128,6 @@ public class FirstController {
         }
         throw new  IllegalArgumentException("Key错误！");
     }
-
-
 
 
 }
