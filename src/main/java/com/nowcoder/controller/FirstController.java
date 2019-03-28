@@ -20,7 +20,7 @@ import java.util.*;
  * @Description:
  * @Date: Create in 14:12 2019/3/27
  */
-@Controller
+//@Controller
 public class FirstController {
 
     @Autowired
