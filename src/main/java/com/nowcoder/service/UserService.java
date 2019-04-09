@@ -70,6 +70,7 @@ public class UserService {
         }
         if(StringUtils.isEmpty(password)){
             map.put("msgpwd","密码不能为空");
+            return  map;
         }
         //判断用户名是否存在
         User user=userDao.selectByName(username);

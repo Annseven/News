@@ -29,7 +29,7 @@ public class LoginController {
     @Autowired
     UserService userService;
 
-    @RequestMapping(path = {"/reg"}, method = {RequestMethod.GET, RequestMethod.POST})
+    @RequestMapping(path = {"/reg/"}, method = {RequestMethod.GET, RequestMethod.POST})
     @ResponseBody
     public String reg(Model model, @RequestParam("username") String username,
                       @RequestParam("password") String password,
@@ -60,7 +60,7 @@ public class LoginController {
     }
 
 
-    @RequestMapping(path = {"/login"}, method = {RequestMethod.GET, RequestMethod.POST})
+    @RequestMapping(path = {"/login/"}, method = {RequestMethod.GET, RequestMethod.POST})
     @ResponseBody
     public String login(Model model, @RequestParam("username") String username,
                       @RequestParam("password") String password,
@@ -68,9 +68,11 @@ public class LoginController {
                       HttpServletResponse response){
 
         try {
-            Map<String, Object> map = userService.register(username, password);
+            Map<String, Object> map = userService.login(username, password);
             if (map.containsKey("ticket")){
+                //把ticket写到cookie中
                 Cookie cookie=new Cookie("ticket",map.get("ticket").toString());
+                // Cookie全量有效
                 cookie.setPath("/");
                 if (rememberme>0){
                     cookie.setMaxAge(3600*24*5);
@@ -86,5 +88,7 @@ public class LoginController {
         }
 
     }
+
+
 
 }

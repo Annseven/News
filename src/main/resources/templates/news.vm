@@ -12,11 +12,11 @@ Hello VM.
 value1:$!{value1}
 $!{value2}
 ${value3}
-##List对象循环
+
 #foreach ($color in $colors)
 Color $!{foreach.index}/$!{foreach.count}: $!{color}
 #end
-##map对象
+
 #foreach($key in $map.keySet())
 Number $!{foreach.index}/$!{foreach.count}: $!{key} $map.get($key)
 #end
@@ -25,18 +25,15 @@ Number $!{foreach.index}/$!{foreach.count}: $!{key} $map.get($key)
 Number $!{foreach.index}/$!{foreach.count}: $!{kv.key} $!{kv.value}
 #end
 
-##实体类对象传参
+
 User:$!{user.name}
 User:$!{user.getName()}
 
 #set($title = "nowcoder")
-## 包含文本
 Include: #include("header.vm") <br>
-##对数据进行编译
 Parse:#parse("header.vm")
 
-##函数的调用
-#macro (render_color,$color, $index)
+#macro (render_color, $color, $index)
 Color By Macro $index, $color
 #end
 
@@ -47,7 +44,7 @@ Color By Macro $index, $color
 #set($hello = "hello")
 #set($hworld1 = "$!{hello} world")
 #set($hworld2 = '$!{hello} world')
-##变量的定义
+
 hworld1:$hworld1
 hworld2:$hworld2
 
