@@ -57,4 +57,6 @@ public class HomeController {
         model.addAttribute("vos", getNews(userId, 0, 10));
         return "home";
     }
+
+
 }
