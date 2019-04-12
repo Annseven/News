@@ -17,6 +17,19 @@ import java.util.Map;
 public class TouTiaoUtil {
     private static final Logger logger = LoggerFactory.getLogger(TouTiaoUtil.class);
 
+    public  static String TOUTIAO_DOAMIAN="http://127.0.0.1:9090/";
+    public static String IMAGE_DIR="D:\\Master\\ImageUpload\\";
+    public static  String[] IMAGE_FILE_EXTD=new String[]{"png","bmp","jpg","jpeg"};
+
+    public static  boolean isFileAllowed(String filename){
+        for(String ext:IMAGE_FILE_EXTD){
+            if(ext.equals(filename)){
+                return  true;
+            }
+        }
+        return false;
+    }
+
 
     public static String getJSONString(int code) {
         JSONObject json = new JSONObject();
