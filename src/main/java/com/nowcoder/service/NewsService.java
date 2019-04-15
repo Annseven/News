@@ -25,6 +25,11 @@ public class NewsService {
     @Autowired
     NewsDao newsDao;
 
+    public int addNews(News news){
+       newsDao.addNews(news);
+       return news.getId();
+    }
+
     public List<News> getlastNews(int userId, int offset,int limit){
         return newsDao.selectByUserIdAndOffset(userId,offset,limit);
     }
