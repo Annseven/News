@@ -28,7 +28,7 @@ public class TengXunService {
     public String  Upload(MultipartFile file) {
 
         String accessKey = "AKIDCCi5MOagcHlPoztb08fy0nMr66sRYwjK";
-        String secretKey = "";
+        String secretKey = "ZrugEWXIn11kBMHvIPGsDIq78sNceQwC";
         String bucket = "ap-beijing";
         String path = "https://toutiao-1259039522.cos.ap-beijing.myqcloud.com";
         String qianzui = "toutiao";

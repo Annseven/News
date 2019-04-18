@@ -25,6 +25,10 @@ public class NewsService {
     @Autowired
     NewsDao newsDao;
 
+    public News getNewsById(int newsId){
+        return  newsDao.getById(newsId);
+    }
+
     public int addNews(News news){
        newsDao.addNews(news);
        return news.getId();
@@ -48,6 +52,13 @@ public class NewsService {
         Files.copy(file.getInputStream(),new File(TouTiaoUtil.IMAGE_DIR+fileName).toPath(),StandardCopyOption.REPLACE_EXISTING);
         return TouTiaoUtil.TOUTIAO_DOAMIAN+"image?name="+fileName;
     }
+
+
+    public void updateCommentCount(int newsId,int commentCount){
+        newsDao.updateCommentCount(newsId,commentCount);
+    }
+
+
 
 
 

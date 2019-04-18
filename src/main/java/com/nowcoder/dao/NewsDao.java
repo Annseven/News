@@ -22,9 +22,14 @@ public interface NewsDao {
     @Insert({"insert into",TABLE_NAME,"(",INSET_FIELDS,") values (#{title},#{link},#{image},#{likeCount},#{commentCount},#{createdDate},#{userId})"})
     void addNews(News news);
 
+    @Select({"select",SELECT_FIELDS,"from",TABLE_NAME,"where id=#{newsId}" })
+    News getById(@Param("newsId") int newsId);
 
     List<News> selectByUserIdAndOffset(@Param("userId") int userId,
                                        @Param("offset") int offset,
                                        @Param("limit") int limit);
 
+    @Update({"update",TABLE_NAME,"set comment_count=#{commentCount} where id=#{newsId}"})
+    void updateCommentCount(@Param("newsId") int newsId,
+                            @Param("commentCount") int commentCount);
 }
